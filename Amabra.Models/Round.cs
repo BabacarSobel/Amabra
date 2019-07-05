@@ -9,6 +9,7 @@ namespace Amabra.Models
     public class Round
     {
         public int Id { get; set; }
-        public Edition Edition { get; set; }
+        public Stage Stage { get; set; }
+        public int NumberOfTeams { get; set; }
     }
 }

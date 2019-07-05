@@ -11,6 +11,6 @@ namespace Amabra.Models
         public int Id { get; set; }
         public Season Season { get; set; }
         public Tournement Tournement { get; set; }
-
+        public List<Stage> Stages { get; set; }
     }
 }

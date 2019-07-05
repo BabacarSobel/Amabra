@@ -8,5 +8,7 @@ namespace Amabra.Models
 {
     public class Goal
     {
+        public int Id { get; set; }
+        public Game Game { get; set; }
     }
 }
