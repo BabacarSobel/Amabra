@@ -1,0 +1,16 @@
+<h1>Players</h1>
+
+<p *ngIf="!players"><em>Loading players...</em></p>
+
+<table class='table' *ngIf="players">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let player of players">
+      <td>{{ player.name }}</td>
+    </tr>
+  </tbody>
+</table>
