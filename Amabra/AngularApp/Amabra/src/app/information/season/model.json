@@ -1,0 +1,24 @@
+{
+  "title": "Season",
+  "entity": "Season",
+  "api": {
+    "url": "/api/Seasons"
+  },
+  "filter": [
+    "Year"
+  ],
+  "fields": [
+    {
+      "name": "id",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "number"
+    },
+    {
+      "name": "Year",
+      "type": "string",
+      "label": "Year"
+    }
+  ]
+}

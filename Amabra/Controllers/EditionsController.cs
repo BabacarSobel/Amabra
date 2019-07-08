@@ -7,62 +7,61 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Amabra.Database;
 using Amabra.Models;
-using Amabra.ViewModels;
 
 namespace Amabra.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlayersController : ControllerBase
+    public class EditionsController : ControllerBase
     {
         private readonly AmabraContext _context;
 
-        public PlayersController(AmabraContext context)
+        public EditionsController(AmabraContext context)
         {
             _context = context;
         }
 
-        // GET: api/Players
+        // GET: api/Editions
         [HttpGet]
-        public IEnumerable<Player> GetPlayers()
+        public IEnumerable<Edition> GetEditions()
         {
-            return _context.Players;
+            return _context.Editions;
         }
 
-        // GET: api/Players/5
+        // GET: api/Editions/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPlayer([FromRoute] int id)
+        public async Task<IActionResult> GetEdition([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var player = await _context.Players.FindAsync(id);
+            var edition = await _context.Editions.FindAsync(id);
 
-            if (player == null)
+            if (edition == null)
             {
                 return NotFound();
             }
 
-            return Ok(player);
+            return Ok(edition);
         }
 
-        // PUT: api/Players/5
+        // PUT: api/Editions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayer([FromRoute] int id, [FromBody] Player player)
+        public async Task<IActionResult> PutEdition([FromRoute] int id, [FromBody] Edition edition)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != player.Id)
+            if (id != edition.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(player).State = EntityState.Modified;
+            _context.Entry(edition).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +69,7 @@ namespace Amabra.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlayerExists(id))
+                if (!EditionExists(id))
                 {
                     return NotFound();
                 }
@@ -83,52 +82,45 @@ namespace Amabra.Controllers
             return NoContent();
         }
 
-        // POST: api/Players
+        // POST: api/Editions
         [HttpPost]
-        public async Task<IActionResult> PostPlayer([FromBody] PlayerViewModel player)
+        public async Task<IActionResult> PostEdition([FromBody] Edition edition)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var toSave = new Player()
-            {
-                Name = player.Name,
-                Club = _context.Clubs.Where(s => s.Name == player.Club)?.FirstOrDefault(),
-                Nation = _context.Nations.Where(s => s.Name == player.Club)?.FirstOrDefault(),
-                NationalTeam = _context.NationalTeams.Where(s => s.Name == player.Club)?.FirstOrDefault()
-            };
-            _context.Players.Add(toSave);
+            _context.Editions.Add(edition);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlayer", new { id = player.Id }, player);
+            return CreatedAtAction("GetEdition", new { id = edition.Id }, edition);
         }
 
-        // DELETE: api/Players/5
+        // DELETE: api/Editions/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlayer([FromRoute] int id)
+        public async Task<IActionResult> DeleteEdition([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var player = await _context.Players.FindAsync(id);
-            if (player == null)
+            var edition = await _context.Editions.FindAsync(id);
+            if (edition == null)
             {
                 return NotFound();
             }
 
-            _context.Players.Remove(player);
+            _context.Editions.Remove(edition);
             await _context.SaveChangesAsync();
 
-            return Ok(player);
+            return Ok(edition);
         }
 
-        private bool PlayerExists(int id)
+        private bool EditionExists(int id)
         {
-            return _context.Players.Any(e => e.Id == id);
+            return _context.Editions.Any(e => e.Id == id);
         }
     }
 }

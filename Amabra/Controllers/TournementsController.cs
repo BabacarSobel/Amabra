@@ -7,62 +7,61 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Amabra.Database;
 using Amabra.Models;
-using Amabra.ViewModels;
 
 namespace Amabra.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlayersController : ControllerBase
+    public class TournementsController : ControllerBase
     {
         private readonly AmabraContext _context;
 
-        public PlayersController(AmabraContext context)
+        public TournementsController(AmabraContext context)
         {
             _context = context;
         }
 
-        // GET: api/Players
+        // GET: api/Tournements
         [HttpGet]
-        public IEnumerable<Player> GetPlayers()
+        public IEnumerable<Tournement> GetTournements()
         {
-            return _context.Players;
+            return _context.Tournements;
         }
 
-        // GET: api/Players/5
+        // GET: api/Tournements/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPlayer([FromRoute] int id)
+        public async Task<IActionResult> GetTournement([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var player = await _context.Players.FindAsync(id);
+            var tournement = await _context.Tournements.FindAsync(id);
 
-            if (player == null)
+            if (tournement == null)
             {
                 return NotFound();
             }
 
-            return Ok(player);
+            return Ok(tournement);
         }
 
-        // PUT: api/Players/5
+        // PUT: api/Tournements/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayer([FromRoute] int id, [FromBody] Player player)
+        public async Task<IActionResult> PutTournement([FromRoute] int id, [FromBody] Tournement tournement)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != player.Id)
+            if (id != tournement.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(player).State = EntityState.Modified;
+            _context.Entry(tournement).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +69,7 @@ namespace Amabra.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlayerExists(id))
+                if (!TournementExists(id))
                 {
                     return NotFound();
                 }
@@ -83,52 +82,45 @@ namespace Amabra.Controllers
             return NoContent();
         }
 
-        // POST: api/Players
+        // POST: api/Tournements
         [HttpPost]
-        public async Task<IActionResult> PostPlayer([FromBody] PlayerViewModel player)
+        public async Task<IActionResult> PostTournement([FromBody] Tournement tournement)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var toSave = new Player()
-            {
-                Name = player.Name,
-                Club = _context.Clubs.Where(s => s.Name == player.Club)?.FirstOrDefault(),
-                Nation = _context.Nations.Where(s => s.Name == player.Club)?.FirstOrDefault(),
-                NationalTeam = _context.NationalTeams.Where(s => s.Name == player.Club)?.FirstOrDefault()
-            };
-            _context.Players.Add(toSave);
+            _context.Tournements.Add(tournement);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlayer", new { id = player.Id }, player);
+            return CreatedAtAction("GetTournement", new { id = tournement.Id }, tournement);
         }
 
-        // DELETE: api/Players/5
+        // DELETE: api/Tournements/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlayer([FromRoute] int id)
+        public async Task<IActionResult> DeleteTournement([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var player = await _context.Players.FindAsync(id);
-            if (player == null)
+            var tournement = await _context.Tournements.FindAsync(id);
+            if (tournement == null)
             {
                 return NotFound();
             }
 
-            _context.Players.Remove(player);
+            _context.Tournements.Remove(tournement);
             await _context.SaveChangesAsync();
 
-            return Ok(player);
+            return Ok(tournement);
         }
 
-        private bool PlayerExists(int id)
+        private bool TournementExists(int id)
         {
-            return _context.Players.Any(e => e.Id == id);
+            return _context.Tournements.Any(e => e.Id == id);
         }
     }
 }

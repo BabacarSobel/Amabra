@@ -7,62 +7,61 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Amabra.Database;
 using Amabra.Models;
-using Amabra.ViewModels;
 
 namespace Amabra.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlayersController : ControllerBase
+    public class NationsController : ControllerBase
     {
         private readonly AmabraContext _context;
 
-        public PlayersController(AmabraContext context)
+        public NationsController(AmabraContext context)
         {
             _context = context;
         }
 
-        // GET: api/Players
+        // GET: api/Nations
         [HttpGet]
-        public IEnumerable<Player> GetPlayers()
+        public IEnumerable<Nation> GetNations()
         {
-            return _context.Players;
+            return _context.Nations;
         }
 
-        // GET: api/Players/5
+        // GET: api/Nations/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPlayer([FromRoute] int id)
+        public async Task<IActionResult> GetNation([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var player = await _context.Players.FindAsync(id);
+            var nation = await _context.Nations.FindAsync(id);
 
-            if (player == null)
+            if (nation == null)
             {
                 return NotFound();
             }
 
-            return Ok(player);
+            return Ok(nation);
         }
 
-        // PUT: api/Players/5
+        // PUT: api/Nations/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayer([FromRoute] int id, [FromBody] Player player)
+        public async Task<IActionResult> PutNation([FromRoute] int id, [FromBody] Nation nation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != player.Id)
+            if (id != nation.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(player).State = EntityState.Modified;
+            _context.Entry(nation).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +69,7 @@ namespace Amabra.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlayerExists(id))
+                if (!NationExists(id))
                 {
                     return NotFound();
                 }
@@ -83,52 +82,45 @@ namespace Amabra.Controllers
             return NoContent();
         }
 
-        // POST: api/Players
+        // POST: api/Nations
         [HttpPost]
-        public async Task<IActionResult> PostPlayer([FromBody] PlayerViewModel player)
+        public async Task<IActionResult> PostNation([FromBody] Nation nation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var toSave = new Player()
-            {
-                Name = player.Name,
-                Club = _context.Clubs.Where(s => s.Name == player.Club)?.FirstOrDefault(),
-                Nation = _context.Nations.Where(s => s.Name == player.Club)?.FirstOrDefault(),
-                NationalTeam = _context.NationalTeams.Where(s => s.Name == player.Club)?.FirstOrDefault()
-            };
-            _context.Players.Add(toSave);
+            _context.Nations.Add(nation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlayer", new { id = player.Id }, player);
+            return CreatedAtAction("GetNation", new { id = nation.Id }, nation);
         }
 
-        // DELETE: api/Players/5
+        // DELETE: api/Nations/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlayer([FromRoute] int id)
+        public async Task<IActionResult> DeleteNation([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var player = await _context.Players.FindAsync(id);
-            if (player == null)
+            var nation = await _context.Nations.FindAsync(id);
+            if (nation == null)
             {
                 return NotFound();
             }
 
-            _context.Players.Remove(player);
+            _context.Nations.Remove(nation);
             await _context.SaveChangesAsync();
 
-            return Ok(player);
+            return Ok(nation);
         }
 
-        private bool PlayerExists(int id)
+        private bool NationExists(int id)
         {
-            return _context.Players.Any(e => e.Id == id);
+            return _context.Nations.Any(e => e.Id == id);
         }
     }
 }

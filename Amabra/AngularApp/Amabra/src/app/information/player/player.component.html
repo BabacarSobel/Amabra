@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="row">
+    <p>List of the registered players: </p>
+  </div>
+  <div class="row">
+      <form>
+        <div class="form-group form-inline">
+          Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm" />
+          <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" sortable="name" (sort)="onSort($event)">Name</th>
+              <th scope="col" sortable="country" (sort)="onSort($event)">Country</th>
+              <th scope="col" sortable="club" (sort)="onSort($event)">Club</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let player of players$ | async">
+              <th scope="row">{{ player.id }}</th>
+              <td>
+                <!--<img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + player.flag" class="mr-2" style="width: 20px">-->
+                <ngb-highlight [result]="player.name" [term]="service.searchTerm"></ngb-highlight>
+              </td>
+              <td><ngb-highlight [result]="player.country" [term]="service.searchTerm"></ngb-highlight></td>
+              <td><ngb-highlight [result]="player.club " [term]="service.searchTerm"></ngb-highlight></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize">
+          </ngb-pagination>
+
+          <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+            <option [ngValue]="2">2 items per page</option>
+            <option [ngValue]="4">4 items per page</option>
+            <option [ngValue]="6">6 items per page</option>
+          </select>
+        </div>
+      </form>
+  </div>
+  <div class="row">
+    <button (click)="open(newplayer)" class="btn btn-primary">New</button>
+    <button (click)="open(updateplayer)" class="btn btn-default">Modify</button>
+    <button (click)="open(deleteplayer)" class="btn btn-danger">Delete</button>
+  </div>
+</div>
+
+
+<ng-template #newplayer let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="player">New player</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <div class="input-group">
+          <input id="name" class="form-control" type="text">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Nation</label>
+        <div class="input-group">
+          <input id="name" class="form-control" type="text">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Club</label>
+        <div class="input-group">
+          <input id="name" class="form-control" type="text">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+<ng-template #updateplayer let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="player">New player</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+<ng-template #deleteplayer let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="player">New player</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
