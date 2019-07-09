@@ -15,5 +15,20 @@ namespace Amabra.Models
         public List<Tournement> Tournements { get; set; }
         public List<Edition> Editions { get; set; }
         public List<Round> Rounds { get; set; }
+
+        public Team()
+        {
+
+        }
+
+        public Team(string name)
+        {
+            Name = name;
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

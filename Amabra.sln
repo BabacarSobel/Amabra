@@ -3,14 +3,30 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amabra", "Amabra\Amabra.csproj", "{003AB602-3765-4305-9DB2-B1CDA92676CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amabra", "Amabra\Amabra.csproj", "{003AB602-3765-4305-9DB2-B1CDA92676CB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DEC8F13E-9987-4AD2-8B68-51F700D6A1B8} = {DEC8F13E-9987-4AD2-8B68-51F700D6A1B8}
+		{15C763B5-0E5F-4581-9B23-CA655FABF7B6} = {15C763B5-0E5F-4581-9B23-CA655FABF7B6}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amabra.Models", "Amabra.Models\Amabra.Models.csproj", "{DEC8F13E-9987-4AD2-8B68-51F700D6A1B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amabra.Database", "Amabra.Database\Amabra.Database.csproj", "{37994E4E-8665-4A89-8AA9-0D9F73D2FCC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amabra.Database", "Amabra.Database\Amabra.Database.csproj", "{37994E4E-8665-4A89-8AA9-0D9F73D2FCC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amabra.Business", "Amabra.Business\Amabra.Business.csproj", "{15C763B5-0E5F-4581-9B23-CA655FABF7B6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DEC8F13E-9987-4AD2-8B68-51F700D6A1B8} = {DEC8F13E-9987-4AD2-8B68-51F700D6A1B8}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D8F050DC-EF0A-4862-80B1-60E15994875E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amabra.Tests", "Amabra.Tests\Amabra.Tests.csproj", "{F6CC9ED6-5653-486E-BEEC-6B11A060A848}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15C763B5-0E5F-4581-9B23-CA655FABF7B6} = {15C763B5-0E5F-4581-9B23-CA655FABF7B6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +46,14 @@ Global
 		{37994E4E-8665-4A89-8AA9-0D9F73D2FCC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37994E4E-8665-4A89-8AA9-0D9F73D2FCC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37994E4E-8665-4A89-8AA9-0D9F73D2FCC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15C763B5-0E5F-4581-9B23-CA655FABF7B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15C763B5-0E5F-4581-9B23-CA655FABF7B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15C763B5-0E5F-4581-9B23-CA655FABF7B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15C763B5-0E5F-4581-9B23-CA655FABF7B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6CC9ED6-5653-486E-BEEC-6B11A060A848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6CC9ED6-5653-486E-BEEC-6B11A060A848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6CC9ED6-5653-486E-BEEC-6B11A060A848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6CC9ED6-5653-486E-BEEC-6B11A060A848}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

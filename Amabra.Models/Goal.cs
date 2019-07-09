@@ -10,5 +10,7 @@ namespace Amabra.Models
     {
         public int Id { get; set; }
         public Game Game { get; set; }
+        public Player Scorer { get; set; }
+        public Player Assist { get; set; }
     }
 }

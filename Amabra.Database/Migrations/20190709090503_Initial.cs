@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Amabra.Database.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,13 +24,12 @@ namespace Amabra.Database.Migrations
                 name: "Seasons",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Year = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Seasons", x => x.Id);
+                    table.PrimaryKey("PK_Seasons", x => new { x.Id, x.Year });
                 });
 
             migrationBuilder.CreateTable(
@@ -176,18 +175,13 @@ namespace Amabra.Database.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     SeasonId = table.Column<int>(nullable: true),
+                    SeasonYear = table.Column<int>(nullable: true),
                     TournementId = table.Column<int>(nullable: true),
                     TeamId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Editions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Editions_Seasons_SeasonId",
-                        column: x => x.SeasonId,
-                        principalTable: "Seasons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Editions_Team_TeamId",
                         column: x => x.TeamId,
@@ -199,6 +193,12 @@ namespace Amabra.Database.Migrations
                         column: x => x.TournementId,
                         principalTable: "Tournements",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Editions_Seasons_SeasonId_SeasonYear",
+                        columns: x => new { x.SeasonId, x.SeasonYear },
+                        principalTable: "Seasons",
+                        principalColumns: new[] { "Id", "Year" },
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -249,11 +249,6 @@ namespace Amabra.Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Editions_SeasonId",
-                table: "Editions",
-                column: "SeasonId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Editions_TeamId",
                 table: "Editions",
                 column: "TeamId");
@@ -262,6 +257,11 @@ namespace Amabra.Database.Migrations
                 name: "IX_Editions_TournementId",
                 table: "Editions",
                 column: "TournementId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Editions_SeasonId_SeasonYear",
+                table: "Editions",
+                columns: new[] { "SeasonId", "SeasonYear" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_Team1Id",
@@ -350,10 +350,10 @@ namespace Amabra.Database.Migrations
                 name: "Editions");
 
             migrationBuilder.DropTable(
-                name: "Seasons");
+                name: "Tournements");
 
             migrationBuilder.DropTable(
-                name: "Tournements");
+                name: "Seasons");
 
             migrationBuilder.DropTable(
                 name: "Team");

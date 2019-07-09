@@ -1,0 +1,71 @@
+<div class="card">
+    
+      <div class="header">
+        <h2 class="title">Player</h2>
+      </div>
+      <div class="content">
+    
+        <form #f="ngForm">
+
+          <div class="form-group">
+            <label>Name:</label>
+            <input [(ngModel)]="filter.name" name="name" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>National Team:</label>
+            <input [(ngModel)]="filter.nationalTeam" name="nationalTeam" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Club:</label>
+            <input [(ngModel)]="filter.club" name="club" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Nation:</label>
+            <input [(ngModel)]="filter.nation" name="nation" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <button (click)="search()" [disabled]="!f?.valid" class="btn btn-default">
+              Search
+            </button>
+            <a [routerLink]="['../player','new']" class="btn btn-default">
+                New
+            </a>
+  
+          </div>
+          
+        </form>
+    
+      </div>
+    </div>
+    
+    <div class="card" *ngIf="playerList.length > 0">
+    
+      <table class="table table-contensed" >
+        <thead>
+        <tr>            
+            <th>Id</th>            
+            <th>Name</th>            
+            <th>National Team</th>            
+            <th>Club</th>            
+            <th>Nation</th>
+        </tr>
+        </thead>
+        <tr *ngFor="let item of playerList" [class.active]="item === selectedPlayer">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.nationalTeam}}</td>
+            <td>{{item.club}}</td>
+            <td>{{item.nation}}</td>
+            <td>
+                
+                <a [routerLink]="['../player', item.id ]">Details</a> |           
+                <a (click)="select(item)">Select</a>
+            </td>
+        </tr>
+      </table>
+    
+    </div>

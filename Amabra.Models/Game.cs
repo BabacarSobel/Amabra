@@ -17,5 +17,6 @@ namespace Amabra.Models
         public int Score1 { get; set; }
         public int Score2 { get; set; }
         public List<Goal> Goals { get; set; }
+        public Round Round { get; set; }
     }
 }

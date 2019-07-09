@@ -10,6 +10,7 @@ namespace Amabra.Models
     {
         public int Id { get; set; }
         public Stage Stage { get; set; }
-        public int NumberOfTeams { get; set; }
+        public List<Team> Teams { get; set; }
+        public List<Game> Games { get; set; }
     }
 }

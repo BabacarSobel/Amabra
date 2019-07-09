@@ -16,5 +16,6 @@ namespace Amabra.Models
         public NationalTeam NationalTeam { get; set; }
         public Club Club { get; set; }
         public Nation Nation { get; set; }
+        public List<Goal> Goals { get; set; }
     }
 }

@@ -37,26 +37,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="AngularApp\Amabra\src\app\information\player\player.service.ts" />
-    <None Remove="AngularApp\Amabra\src\app\information\player\player.ts" />
-    <None Remove="AngularApp\Amabra\src\app\information\player\sortable.directive.ts" />
+    <None Remove="AngularApp\Amabra\src\app\information\player_old\player.service.ts" />
+    <None Remove="AngularApp\Amabra\src\app\information\player_old\player.ts" />
+    <None Remove="AngularApp\Amabra\src\app\information\player_old\sortable.directive.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Amabra.Business\Amabra.Business.csproj" />
     <ProjectReference Include="..\Amabra.Database\Amabra.Database.csproj" />
     <ProjectReference Include="..\Amabra.Models\Amabra.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="AngularApp\Amabra\src\app\information\player\player.service.ts" />
-    <TypeScriptCompile Include="AngularApp\Amabra\src\app\information\player\player.ts" />
-    <TypeScriptCompile Include="AngularApp\Amabra\src\app\information\player\sortable.directive.ts" />
+    <TypeScriptCompile Include="AngularApp\Amabra\src\app\information\player_old\player.service.ts" />
+    <TypeScriptCompile Include="AngularApp\Amabra\src\app\information\player_old\player.ts" />
+    <TypeScriptCompile Include="AngularApp\Amabra\src\app\information\player_old\sortable.directive.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="AngularApp\Amabra\src\app\information\nationalTeams\" />
-    <Folder Include="AngularApp\Amabra\src\app\information\edition\" />
-    <Folder Include="AngularApp\Amabra\src\app\information\tournement\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

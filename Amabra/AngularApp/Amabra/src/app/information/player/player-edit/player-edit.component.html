@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="header">
+        <h1 class="title">Player Detail</h1>
+    </div>
+    <div class="content">
+    
+        <p *ngIf="errors">{{ errors }}</p>
+    
+        <form *ngIf="player">
+                
+            <div class="form-group">
+                <label>Id:</label>
+                {{player.id || 'n/a'}} <input [(ngModel)]="player.id" name="id" class="form-control">
+            </div>
+                
+            <div class="form-group">
+                <label>Name:</label>
+                <input [(ngModel)]="player.name" name="name" class="form-control">
+            </div>
+                
+            <div class="form-group">
+                <label>National Team:</label>
+                <input [(ngModel)]="player.nationalTeam" name="nationalTeam" class="form-control">
+            </div>
+                
+            <div class="form-group">
+                <label>Club:</label>
+                <input [(ngModel)]="player.club" name="club" class="form-control">
+            </div>
+                
+            <div class="form-group">
+                <label>Nation:</label>
+                <input [(ngModel)]="player.nation" name="nation" class="form-control">
+            </div>
+        
+            <div class="form-group">
+                <button
+                (click)="save()"
+                class="btn btn-default">Save</button>
+            </div>
+
+        </form>
+    
+    </div>
+</div>

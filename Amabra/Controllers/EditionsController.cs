@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Amabra.Database;
 using Amabra.Models;
+using Amabra.ViewModels;
+using Amabra.Business;
 
 namespace Amabra.Controllers
 {
@@ -15,10 +17,33 @@ namespace Amabra.Controllers
     public class EditionsController : ControllerBase
     {
         private readonly AmabraContext _context;
+        private readonly EditionService _editionService;
 
         public EditionsController(AmabraContext context)
         {
             _context = context;
+            _editionService = new EditionService(_context);
+        }
+
+        // POST: api/Editions/5/Generate
+        [HttpPost("{id}/Generate")]
+        public async Task<IActionResult> GenerateEdition([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var edition = await _context.Editions.FindAsync(id);
+
+            if (edition == null)
+            {
+                return NotFound();
+            }
+
+            _editionService.Generate(edition);
+
+            return Ok("");
         }
 
         // GET: api/Editions
@@ -84,14 +109,20 @@ namespace Amabra.Controllers
 
         // POST: api/Editions
         [HttpPost]
-        public async Task<IActionResult> PostEdition([FromBody] Edition edition)
+        public async Task<IActionResult> PostEdition([FromBody] EditionViewModel edition)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Editions.Add(edition);
+            var toSave = new Edition()
+            {
+                Id = edition.Id,
+                Season = _context.Seasons.Where(s => s.Year == edition.Season)?.FirstOrDefault(),
+                Tournement = _context.Tournements.Where(s => s.Name == edition.Tournement)?.FirstOrDefault(),
+            };
+            _context.Editions.Add(toSave);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetEdition", new { id = edition.Id }, edition);

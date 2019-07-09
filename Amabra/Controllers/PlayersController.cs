@@ -96,8 +96,8 @@ namespace Amabra.Controllers
             {
                 Name = player.Name,
                 Club = _context.Clubs.Where(s => s.Name == player.Club)?.FirstOrDefault(),
-                Nation = _context.Nations.Where(s => s.Name == player.Club)?.FirstOrDefault(),
-                NationalTeam = _context.NationalTeams.Where(s => s.Name == player.Club)?.FirstOrDefault()
+                Nation = _context.Nations.Where(s => s.Name == player.Nation)?.FirstOrDefault(),
+                NationalTeam = _context.NationalTeams.Where(s => s.Name == player.NationalTeam)?.FirstOrDefault()
             };
             _context.Players.Add(toSave);
             await _context.SaveChangesAsync();

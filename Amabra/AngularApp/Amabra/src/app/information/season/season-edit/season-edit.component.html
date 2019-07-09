@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="header">
+        <h1 class="title">Season Detail</h1>
+    </div>
+    <div class="content">
+    
+        <p *ngIf="errors">{{ errors }}</p>
+    
+        <form *ngIf="season">
+                
+            <div class="form-group">
+                <label>Id:</label>
+                {{season.id || 'n/a'}} <input [(ngModel)]="season.id" name="id" class="form-control">
+            </div>
+                
+            <div class="form-group">
+                <label>Year:</label>
+                <input type='number' [(ngModel)]="season.Year" name="Year" class="form-control">
+            </div>
+        
+            <div class="form-group">
+                <button
+                (click)="save()"
+                class="btn btn-default">Save</button>
+            </div>
+
+        </form>
+    
+    </div>
+</div>

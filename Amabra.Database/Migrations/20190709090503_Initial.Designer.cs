@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Amabra.Database.Migrations
 {
     [DbContext(typeof(AmabraContext))]
-    [Migration("20190705145237_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190709090503_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,17 +29,19 @@ namespace Amabra.Database.Migrations
 
                     b.Property<int?>("SeasonId");
 
+                    b.Property<int?>("SeasonYear");
+
                     b.Property<int?>("TeamId");
 
                     b.Property<int?>("TournementId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SeasonId");
-
                     b.HasIndex("TeamId");
 
                     b.HasIndex("TournementId");
+
+                    b.HasIndex("SeasonId", "SeasonYear");
 
                     b.ToTable("Editions");
                 });
@@ -143,13 +145,11 @@ namespace Amabra.Database.Migrations
 
             modelBuilder.Entity("Amabra.Models.Season", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<int>("Year");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "Year");
 
                     b.ToTable("Seasons");
                 });
@@ -237,10 +237,6 @@ namespace Amabra.Database.Migrations
 
             modelBuilder.Entity("Amabra.Models.Edition", b =>
                 {
-                    b.HasOne("Amabra.Models.Season", "Season")
-                        .WithMany()
-                        .HasForeignKey("SeasonId");
-
                     b.HasOne("Amabra.Models.Team")
                         .WithMany("Editions")
                         .HasForeignKey("TeamId");
@@ -248,6 +244,10 @@ namespace Amabra.Database.Migrations
                     b.HasOne("Amabra.Models.Tournement", "Tournement")
                         .WithMany("Editions")
                         .HasForeignKey("TournementId");
+
+                    b.HasOne("Amabra.Models.Season", "Season")
+                        .WithMany("Editions")
+                        .HasForeignKey("SeasonId", "SeasonYear");
                 });
 
             modelBuilder.Entity("Amabra.Models.Game", b =>

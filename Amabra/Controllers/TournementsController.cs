@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Amabra.Database;
 using Amabra.Models;
+using Amabra.ViewModels;
 
 namespace Amabra.Controllers
 {
@@ -84,14 +85,20 @@ namespace Amabra.Controllers
 
         // POST: api/Tournements
         [HttpPost]
-        public async Task<IActionResult> PostTournement([FromBody] Tournement tournement)
+        public async Task<IActionResult> PostTournement([FromBody] TournementViewModel tournement)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Tournements.Add(tournement);
+            var toSave = new Tournement()
+            {
+                Id = tournement.Id,
+                Name = tournement.Name,
+                Nation = _context.Nations.Where(s => s.Name == tournement.Nation)?.FirstOrDefault(),
+            };
+            _context.Tournements.Add(toSave);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTournement", new { id = tournement.Id }, tournement);

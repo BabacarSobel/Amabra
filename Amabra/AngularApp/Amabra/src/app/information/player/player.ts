@@ -1,7 +1,7 @@
-export interface Player {
-  id: number;
-  name: string;
-  nationalTeam: string;
-  club: string;
-  nation: string;
+export class Player {
+    id: number;
+    name: string;
+    nationalTeam: string;
+    club: string;
+    nation: string;    
 }

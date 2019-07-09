@@ -1,0 +1,39 @@
+{
+  "title": "Player",
+  "entity": "Player",
+  "api": {
+    "url": "/api/Players"
+  },
+  "filter": [
+    "name","club","nation","nationalTeam"
+  ],
+  "fields": [
+    {
+      "name": "id",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "number"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "label": "Name"
+    },
+    {
+      "name": "nationalTeam",
+      "type": "string",
+      "label": "National Team"
+    },
+    {
+      "name": "club",
+      "type": "string",
+      "label": "Club"
+    },
+    {
+      "name": "nation",
+      "type": "string",
+      "label": "Nation"
+    }
+  ]
+}

@@ -16,6 +16,7 @@ namespace Amabra.Database
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Nation> Nations { get; set; }
         public DbSet<Round> Rounds { get; set; }
+        public DbSet<Stage> Stages { get; set; }
 
         public AmabraContext(DbContextOptions options) : base(options)
         {
@@ -23,6 +24,11 @@ namespace Amabra.Database
 
         protected AmabraContext()
         {
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Season>()
+                .HasKey(s => new {s.Id, s.Year});
         }
     }
 }
